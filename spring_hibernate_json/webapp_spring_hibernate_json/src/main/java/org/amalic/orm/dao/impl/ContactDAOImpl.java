@@ -2,19 +2,13 @@ package org.amalic.orm.dao.impl;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.amalic.orm.dao.ContactDAO;
 import org.amalic.orm.model.Contact;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ContactDAOImpl implements ContactDAO {
+public class ContactDAOImpl extends AbstractDAOImpl implements ContactDAO {
 	
-	@PersistenceContext
-	private EntityManager entityManager;
-
 	@Override
 	public void addContact(Contact contact) {
 		if(null == contact)
