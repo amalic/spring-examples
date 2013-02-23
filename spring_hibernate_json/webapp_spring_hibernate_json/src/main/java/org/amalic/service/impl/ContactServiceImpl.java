@@ -7,7 +7,6 @@ import org.amalic.orm.model.Contact;
 import org.amalic.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,13 +29,13 @@ public class ContactServiceImpl implements ContactService {
 	}
 	
 	@Override
-	@Transactional(readOnly=true, propagation=Propagation.REQUIRED, isolation=Isolation.READ_COMMITTED)
+	@Transactional(readOnly=true, propagation=Propagation.REQUIRED)
 	public Contact loadContact(Integer id) {
 		return contactDAO.loadContact(id);
 	}
 
 	@Override
-	@Transactional(readOnly=true, propagation=Propagation.REQUIRED, isolation=Isolation.READ_COMMITTED)
+	@Transactional(readOnly=true, propagation=Propagation.REQUIRED)
 	public List<Contact> listContact() {
 		return contactDAO.listContact();
 	}
