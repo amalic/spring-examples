@@ -7,7 +7,15 @@ import org.amalic.orm.model.Contact;
 import org.amalic.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * read more about Transactions here -> http://www.ibm.com/developerworks/java/library/j-ts1/index.html
+ * 
+ * @author amalic
+ */
 
 @Service
 public class ContactServiceImpl implements ContactService {
@@ -16,25 +24,25 @@ public class ContactServiceImpl implements ContactService {
 	private ContactDAO contactDAO;
 
 	@Override
-	@Transactional
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
 	public void addContact(Contact contact) {
 		contactDAO.addContact(contact);
 	}
 	
 	@Override
-	@Transactional
+	@Transactional(readOnly=true, propagation=Propagation.REQUIRED, isolation=Isolation.READ_COMMITTED)
 	public Contact loadContact(Integer id) {
 		return contactDAO.loadContact(id);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly=true, propagation=Propagation.REQUIRED, isolation=Isolation.READ_COMMITTED)
 	public List<Contact> listContact() {
 		return contactDAO.listContact();
 	}
 	
 	@Override
-	@Transactional
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
 	public void removeContact(Integer id) {
 		Contact contact = contactDAO.loadContact(id);
 		contactDAO.removeContact(contact);
