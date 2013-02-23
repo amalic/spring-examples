@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/jsons")
 public class JSONController {
 	
-	private Log log = LogFactory.getLog(JSONController.class);
+	private static Log log = LogFactory.getLog(JSONController.class);
 
 	@RequestMapping(value="/getSomethingAsJSON/{property}/{property2}", method = RequestMethod.GET)
 	public @ResponseBody TestModel getSomethingAsJSON(@PathVariable String property, @PathVariable String property2) {
-		log.info("JUHU, RequestMapping funktioniert :)");
+		log.info("RequestMapping works!");
 		
 		TestModel testModel = new TestModel();
 		testModel.setProperty(property);
