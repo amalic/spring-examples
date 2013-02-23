@@ -20,7 +20,7 @@ public class ContactController {
 	@Autowired
 	private ContactService contactService;
 	
-	@RequestMapping("/index")
+	@RequestMapping("/")
 	public String listContacts(Map<String, Object> map) {
 		map.put("contact", new Contact());
 		map.put("contactList", contactService.listContact());
@@ -31,23 +31,27 @@ public class ContactController {
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String addContact(@ModelAttribute("Contact") Contact contact, BindingResult result) {
 		contactService.addContact(contact);
-		return "redirect:/index";
+		
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/delete/{contactId}")
 	public String deleteContact(@PathVariable("contactId") Integer contactId) {
 		contactService.removeContact(contactId);
-		return "redirect:/index";
+		
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/rest/contact/{contactId}", method=RequestMethod.GET)
 	public @ResponseBody Contact contactAsJson(@PathVariable("contactId") Integer contactId) {
 		Contact contact = contactService.loadContact(contactId);
+		
 		return contact;
 	}
 	
 	@RequestMapping(value="/rest/contacts", method=RequestMethod.GET)
 	public @ResponseBody List<Contact> contactAsJson() {
+		
 		return contactService.listContact();
 	}
 	
