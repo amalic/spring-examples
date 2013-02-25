@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@Entity @Data @EqualsAndHashCode(of={"id"}) 
+@Entity @Data @EqualsAndHashCode(of={"id"})
 public class  Contact {
 	@Id @GeneratedValue	
 	private Integer id;
