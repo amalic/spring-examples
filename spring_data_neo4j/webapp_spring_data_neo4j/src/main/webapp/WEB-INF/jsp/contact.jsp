@@ -6,14 +6,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="./resources/site.css">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="./resources/site.css" />
+	<script  type="text/javascript" src="./resources/jquery-1.9.1.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('#div1').load('./rest/contacts');
+			$('.zebra').find('tr:odd').addClass('odd');
+		});
+	</script>
 </head>
 <body>
 	<h2>Contact Manager</h2>
 	
-	<form:form method="post" action="add.html" commandName="contact">
+	<form:form method="post" action="save.html" commandName="contact">
+		<form:input path="id" type="hidden"/>
 		<table>
 			<tr>
 				<td>First name</td>
@@ -32,20 +40,26 @@
 				<td><form:input path="telephone"/></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="Add Contact"/></td>
+				<td>Country</td>
+				<td><form:input path="country"/></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="Save Contact"/></td>
 			</tr>
 		</table>
 	</form:form>
 	
-	<h3><a href="./rest/contacts">Contacts</a></h3>
+	<h2><a href="./rest/contacts">Contacts</a></h2>
 	
 	<c:if test="${!empty contactList}">
-		<table class="data">
+		<table class="datatable zebra">
 			<tr>
 				<th>id</th>
 				<th>Name</th>
 				<th>Email</th>
 				<th>Telephone</th>
+				<th>Country</th>
+				<th>&nbsp;</th>
 				<th>&nbsp;</th>
 			</tr>
 			<c:forEach items="${contactList}" var="contact">
@@ -54,11 +68,17 @@
 					<td>${contact.lastName}, ${contact.firstName}</td>
 					<td>${contact.email}</td>
 					<td>${contact.telephone}</td>
+					<td>${contact.country}</td>
+					<td><a href="${contact.id}">edit</a></td>
 					<td><a href="delete/${contact.id}">delete</a></td>
 				</tr>
 			</c:forEach>
 		</table>
 	</c:if>
 
+	<h4>As JSON</h4>
+
+	<div id="div1"></div>
+	
 </body>
 </html>

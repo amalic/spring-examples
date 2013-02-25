@@ -1,6 +1,19 @@
+body {
+	font-family: verdana;
+	font-size: 12px;	
+}
 table {
 	border-collapse: collapse;
 }
-table, th, td {
+input {
+	widht: 100%;
+}
+table, th, td, div {
 	border: 1px solid black;
+}
+.datatable, div {
+	width: 100%;
+}
+.odd {
+	background: #ccc;
 }

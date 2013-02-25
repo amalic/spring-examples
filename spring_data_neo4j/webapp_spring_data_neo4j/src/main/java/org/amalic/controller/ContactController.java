@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.amalic.domain.Contact;
-import org.amalic.repository.ContactRepository;
+import org.amalic.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ContactController {
 	
 	@Autowired
-	private ContactRepository contactRepository;
+	private ContactService contactService;
 	
 	@RequestMapping("/")
 	public String listContacts(Map<String, Object> map) {
@@ -28,30 +28,38 @@ public class ContactController {
 		return "contact";
 	}
 	
-	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String addContact(@ModelAttribute("Contact") Contact contact, BindingResult result) {
-		contactRepository.addContact(contact);
+	@RequestMapping("/{contactId}")
+	public String editContact(@PathVariable("contactId") Long contactId, Map<String, Object> map) {
+		map.put("contact", contactService.loadContact(contactId));
+		map.put("contactList", getAllContactsAsList());
+		
+		return "contact";
+	}
+	
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public String saveContact(@ModelAttribute("Contact") Contact contact, BindingResult result) {
+		contactService.addContact(contact);
 		
 		return "redirect:/";
 	}
 	
 	@RequestMapping("/delete/{contactId}")
 	public String deleteContact(@PathVariable("contactId") Long contactId) {
-		contactRepository.removeContact(contactRepository.loadContact(contactId));
+		contactService.deleteContact(contactId);
 		
 		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/rest/contact/{contactId}", method=RequestMethod.GET)
 	public @ResponseBody Contact getContact(@PathVariable("contactId") Long contactId) {
-		Contact contact = contactRepository.loadContact(contactId);
+		Contact contact = contactService.loadContact(contactId);
 		
 		return contact;
 	}
 	
 	@RequestMapping(value="/rest/contacts", method=RequestMethod.GET)
 	public @ResponseBody List<Contact> getAllContactsAsList() {
-		return contactRepository.loadContacts();
+		return contactService.loadContacts();
 	}
 	
 }
