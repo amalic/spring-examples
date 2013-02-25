@@ -18,6 +18,7 @@
     <context:spring-configured/>
 
     <neo4j:config storeDirectory="target/data/graph.db"/>
+    
     <neo4j:repositories base-package="org.neo4j.cineasts.repository"/>
                            
 </beans>
