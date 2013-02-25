@@ -39,7 +39,7 @@
 	<h3><a href="./rest/contacts">Contacts</a></h3>
 	
 	<c:if test="${!empty contactList}">
-		<table class="data">
+		<table class="data" border="1">
 			<tr>
 				<th>id</th>
 				<th>Name</th>
