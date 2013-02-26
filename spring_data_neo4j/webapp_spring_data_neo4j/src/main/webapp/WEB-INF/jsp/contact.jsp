@@ -67,23 +67,25 @@
 		<table class="datatable zebra">
 			<tr>
 				<th>id</th>
+				<th>&nbsp;</th>
 				<th>Username</th>
 				<th>Name</th>
 				<th>Email</th>
 				<th>Telephone</th>
 				<th>Country</th>
-				<th>&nbsp;</th>
+				<th>manager</th>
 				<th>&nbsp;</th>
 			</tr>
 			<c:forEach items="${contactList}" var="contact">
 				<tr>
 					<td><a href="./rest/contact/${contact.id}">${contact.id}</a></td>
+					<td><a href="${contact.id}">edit</a></td>
 					<td>${contact.userName}</td>
 					<td>${contact.lastName}, ${contact.firstName}</td>
 					<td>${contact.email}</td>
 					<td>${contact.telephone}</td>
 					<td>${contact.country}</td>
-					<td><a href="${contact.id}">edit</a></td>
+					<td>${contact.manager.id}</td>
 					<td><a href="delete/${contact.id}">delete</a></td>
 				</tr>
 			</c:forEach>
