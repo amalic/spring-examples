@@ -15,7 +15,7 @@ public class ContactRepository {
 	@Autowired
     private Neo4jOperations template;
 	
-	public void addContact(Contact contact) {
+	public void saveContact(Contact contact) {
 		template.save(contact);
 	}
 	

@@ -16,7 +16,7 @@ public class ContactService {
 
 	@Transactional
 	public void addContact(Contact contact) {
-		contactRepository.addContact(contact);
+		contactRepository.saveContact(contact);
 	}
 
 	@Transactional
