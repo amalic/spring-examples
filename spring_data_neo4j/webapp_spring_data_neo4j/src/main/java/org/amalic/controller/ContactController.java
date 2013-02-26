@@ -54,8 +54,6 @@ public class ContactController {
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public String saveContact(@ModelAttribute("Contact") Contact contact, BindingResult result) {
-//		if(null!=contact.getManager() && null!=contact.getManager().getId())
-//			contact.setManager(contactService.loadContact(contact.getManager().getId()));
 		contactService.saveContact(contact);
 		
 		return "redirect:/";

@@ -51,7 +51,7 @@
 				<td>Manager</td>
 				<td>
 					<form:select path="manager.id">
-						<form:options items="${managerList}" itemValue="id" itemLabel="lastName" />
+						<form:options items="${managerList}" itemValue="id" itemLabel="userName" />
 					</form:select>
 				</td>
 			</tr>
