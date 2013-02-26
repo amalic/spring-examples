@@ -27,7 +27,7 @@ public class ContactController {
 
 		List<Contact> contactList = getAllContactsAsList();
 		
-		List<Contact> managerList = new ArrayList<>(contactList);
+		List<Contact> managerList = new ArrayList<Contact>(contactList);
 		managerList.add(0, new Contact());
 		
 		map.put("contactList", getAllContactsAsList());
@@ -42,7 +42,7 @@ public class ContactController {
 		
 		List<Contact> contactList = getAllContactsAsList();
 		
-		List<Contact> managerList = new ArrayList<>(contactList);
+		List<Contact> managerList = new ArrayList<Contact>(contactList);
 		managerList.remove(contact);
 		managerList.add(0, new Contact());
 		
