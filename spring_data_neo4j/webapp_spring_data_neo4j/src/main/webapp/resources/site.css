@@ -1,3 +1,4 @@
+select[disabled] option[selected] { color:white; background-color: navy;}
 body {
 	font-family: verdana;
 	font-size: 12px;	
@@ -5,8 +6,8 @@ body {
 table {
 	border-collapse: collapse;
 }
-input {
-	widht: 100%;
+input, select {
+	width: 250px;
 }
 table, th, td, div {
 	border: 1px solid black;

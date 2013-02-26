@@ -1,6 +1,5 @@
 package org.amalic.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,14 +23,7 @@ public class ContactController {
 	@RequestMapping("/")
 	public String listContacts(Map<String, Object> map) {
 		map.put("contact", new Contact());
-
-		List<Contact> contactList = getAllContactsAsList();
-		
-		List<Contact> managerList = new ArrayList<Contact>(contactList);
-		managerList.add(0, new Contact());
-		
 		map.put("contactList", getAllContactsAsList());
-		map.put("managerList", managerList);
 		
 		return "contact";
 	}
@@ -39,16 +31,9 @@ public class ContactController {
 	@RequestMapping("/{contactId}")
 	public String editContact(@PathVariable("contactId") Long contactId, Map<String, Object> map) {
 		Contact contact = contactService.loadContact(contactId);
-		
-		List<Contact> contactList = getAllContactsAsList();
-		
-		List<Contact> managerList = new ArrayList<Contact>(contactList);
-		managerList.remove(contact);
-		managerList.add(0, new Contact());
-		
+		List<Contact> contacts = getAllContactsAsList();
 		map.put("contact", contact);
-		map.put("contactList", getAllContactsAsList());
-		map.put("managerList", managerList);
+		map.put("contactList", contacts);
 		return "contact";
 	}
 	

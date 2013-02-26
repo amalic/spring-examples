@@ -12,8 +12,8 @@
 	<script  type="text/javascript" src="./resources/jquery-1.9.1.min.js"></script>
 	<script>
 		$(document).ready(function(){
-			$('#div1').load('./rest/contacts');
 			$('.zebra').find('tr:odd').addClass('odd');
+			//$('#div1').load('./rest/contacts');
 		});
 	</script>
 </head>
@@ -50,8 +50,45 @@
 			<tr>
 				<td>Manager</td>
 				<td>
-					<form:select path="manager.id">
-						<form:options items="${managerList}" itemValue="id" itemLabel="userName" />
+					<form:select path="manager.id" multiple="false">
+						<option value="">&nbsp;</option>
+						<c:forEach var="mgr" items="${contactList}">
+							<c:if test="${contact.id!=mgr.id}">
+								<form:option value="${mgr.id}"><c:out value="${mgr.firstName} ${mgr.lastName}"/></form:option>
+							</c:if>
+						</c:forEach>
+					</form:select>
+				</td>
+			</tr>
+			<tr>
+				<td>ReportsTo</td>
+				<td>
+				<!-- 
+				<form:select path="reportsTo" multiple="true">
+					<form:options path="id" items="${contactList}" itemValue="id" itemLabel="userName"/>
+				</form:select>
+				 -->
+					<form:select path="reportsTo" multiple="true" size="8">
+						<c:forEach var="ct" items="${contactList}">
+							<c:if test="${contact.id!=ct.id}">
+								<c:choose>
+									<c:when test="${contact.reportsTo.contains(ct) eq true}">
+										<form:option path="id" value="${ct.id}" selected="true"><c:out value="${ct.firstName} ${ct.lastName}"/></form:option>
+									</c:when>
+									<c:otherwise>
+										<form:option path="id" value="${ct.id}"><c:out value="${ct.firstName} ${ct.lastName}"/></form:option>
+									</c:otherwise>
+								</c:choose>
+							</c:if>
+						</c:forEach>
+					</form:select>
+				</td>
+			</tr>
+			<tr>
+				<td>Direct Reports</td>
+				<td>
+					<form:select path="directReports" multiple="true" disabled="true" size="8">
+						<form:options path="id" items="${contactList}" itemValue="id" itemLabel="userName"/>
 					</form:select>
 				</td>
 			</tr>
