@@ -5,6 +5,7 @@ import java.util.Set;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
@@ -13,6 +14,7 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.support.index.IndexType;
 
 @NodeEntity @Data @EqualsAndHashCode(of={"id"})
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Contact {
 	public static final String INDEX_USERNAME = "contact.userName"; 
 	@GraphId
