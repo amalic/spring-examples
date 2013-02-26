@@ -15,6 +15,7 @@ public class ContactRepository {
 	@Autowired
     private Neo4jOperations template;
 	
+	
 	public void saveContact(Contact contact) {
 		template.save(contact);
 	}
@@ -23,14 +24,19 @@ public class ContactRepository {
 		return new ArrayList<Contact>(
 				IteratorUtil.asCollection(
 						template.findAll(Contact.class)));
+		
 	}
 	
 	public Contact loadContact(Long id) {
-		return template.findOne(id, Contact.class);
+		Contact contact = template.findOne(id, Contact.class);
+		template.fetch(contact.getManager());
+		for(Contact c: contact.getDirectReports())
+			template.fetch(c);
+		return contact;
 	}
 	
 	public void removeContact(Contact contact) {
 		template.delete(contact);
 	}
-
+	
 }

@@ -24,6 +24,10 @@
 		<form:input path="id" type="hidden"/>
 		<table>
 			<tr>
+				<td>Username</td>
+				<td><form:input path="userName"/></td>
+			</tr>
+			<tr>
 				<td>First name</td>
 				<td><form:input path="firstName"/></td>
 			</tr>
@@ -44,6 +48,14 @@
 				<td><form:input path="country"/></td>
 			</tr>
 			<tr>
+				<td>Manager</td>
+				<td>
+					<form:select path="manager.id">
+						<form:options items="${managerList}" itemValue="id" itemLabel="lastName" />
+					</form:select>
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2"><input type="submit" value="Save Contact"/></td>
 			</tr>
 		</table>
@@ -55,6 +67,7 @@
 		<table class="datatable zebra">
 			<tr>
 				<th>id</th>
+				<th>Username</th>
 				<th>Name</th>
 				<th>Email</th>
 				<th>Telephone</th>
@@ -65,6 +78,7 @@
 			<c:forEach items="${contactList}" var="contact">
 				<tr>
 					<td><a href="./rest/contact/${contact.id}">${contact.id}</a></td>
+					<td>${contact.userName}</td>
 					<td>${contact.lastName}, ${contact.firstName}</td>
 					<td>${contact.email}</td>
 					<td>${contact.telephone}</td>

@@ -1,5 +1,6 @@
 package org.amalic.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,22 +24,39 @@ public class ContactController {
 	@RequestMapping("/")
 	public String listContacts(Map<String, Object> map) {
 		map.put("contact", new Contact());
+
+		List<Contact> contactList = getAllContactsAsList();
+		
+		List<Contact> managerList = new ArrayList<>(contactList);
+		managerList.add(0, new Contact());
+		
 		map.put("contactList", getAllContactsAsList());
+		map.put("managerList", managerList);
 		
 		return "contact";
 	}
 	
 	@RequestMapping("/{contactId}")
 	public String editContact(@PathVariable("contactId") Long contactId, Map<String, Object> map) {
-		map.put("contact", contactService.loadContact(contactId));
-		map.put("contactList", getAllContactsAsList());
+		Contact contact = contactService.loadContact(contactId);
 		
+		List<Contact> contactList = getAllContactsAsList();
+		
+		List<Contact> managerList = new ArrayList<>(contactList);
+		managerList.remove(contact);
+		managerList.add(0, new Contact());
+		
+		map.put("contact", contact);
+		map.put("contactList", getAllContactsAsList());
+		map.put("managerList", managerList);
 		return "contact";
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public String saveContact(@ModelAttribute("Contact") Contact contact, BindingResult result) {
-		contactService.addContact(contact);
+//		if(null!=contact.getManager() && null!=contact.getManager().getId())
+//			contact.setManager(contactService.loadContact(contact.getManager().getId()));
+		contactService.saveContact(contact);
 		
 		return "redirect:/";
 	}
