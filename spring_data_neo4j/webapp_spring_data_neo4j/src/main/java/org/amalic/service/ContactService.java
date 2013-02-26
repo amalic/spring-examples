@@ -16,8 +16,6 @@ public class ContactService {
 
 	@Transactional
 	public void saveContact(Contact contact) {
-		if(null != contact.getManager() && null!=contact.getManager().getId())
-			contact.setManager(null);
 		contactRepository.saveContact(contact);
 	}
 
