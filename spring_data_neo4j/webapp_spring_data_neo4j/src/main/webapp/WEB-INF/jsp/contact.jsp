@@ -13,7 +13,7 @@
 	<script>
 		$(document).ready(function(){
 			$('.zebra').find('tr:odd').addClass('odd');
-			//$('#div1').load('./rest/contacts');
+			$('#div1').load('./rest/contacts');
 		});
 	</script>
 </head>
@@ -24,51 +24,15 @@
 		<form:input path="id" type="hidden"/>
 		<table>
 			<tr>
-				<td>Username</td>
+				<th colspan="2">Details</th>
+				<th>Reports To</th>
+				<th>Direct Reports</th>
+			</tr>
+			<tr>
+				<th>Username</th>
 				<td><form:input path="userName"/></td>
-			</tr>
-			<tr>
-				<td>First name</td>
-				<td><form:input path="firstName"/></td>
-			</tr>
-			<tr>
-				<td>Last name</td>
-				<td><form:input path="lastName"/></td>
-			</tr>
-			<tr>
-				<td>Email</td>
-				<td><form:input path="email"/></td>
-			</tr>
-			<tr>
-				<td>Telephone</td>
-				<td><form:input path="telephone"/></td>
-			</tr>
-			<tr>
-				<td>Country</td>
-				<td><form:input path="country"/></td>
-			</tr>
-			<tr>
-				<td>Manager</td>
-				<td>
-					<form:select path="manager.id" multiple="false">
-						<option value="">&nbsp;</option>
-						<c:forEach var="mgr" items="${contactList}">
-							<c:if test="${contact.id!=mgr.id}">
-								<form:option value="${mgr.id}"><c:out value="${mgr.firstName} ${mgr.lastName}"/></form:option>
-							</c:if>
-						</c:forEach>
-					</form:select>
-				</td>
-			</tr>
-			<tr>
-				<td>ReportsTo</td>
-				<td>
-				<!-- 
-				<form:select path="reportsTo" multiple="true">
-					<form:options path="id" items="${contactList}" itemValue="id" itemLabel="userName"/>
-				</form:select>
-				 -->
-					<form:select path="reportsTo" multiple="true" size="8">
+				<td rowspan="8">
+					<form:select path="reportsTo" multiple="true" size="13">
 						<c:forEach var="ct" items="${contactList}">
 							<c:if test="${contact.id!=ct.id}">
 								<c:choose>
@@ -83,17 +47,48 @@
 						</c:forEach>
 					</form:select>
 				</td>
-			</tr>
-			<tr>
-				<td>Direct Reports</td>
-				<td>
-					<form:select path="directReports" multiple="true" disabled="true" size="8">
+				<td rowspan="8">
+					<form:select path="directReports" multiple="true" disabled="true" size="13">
 						<form:options path="id" items="${contactList}" itemValue="id" itemLabel="userName"/>
 					</form:select>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="Save Contact"/></td>
+				<th>First name</th>
+				<td><form:input path="firstName"/></td>
+			</tr>
+			<tr>
+				<th>Last name</th>
+				<td><form:input path="lastName"/></td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td><form:input path="email"/></td>
+			</tr>
+			<tr>
+				<th>Telephone</th>
+				<td><form:input path="telephone"/></td>
+			</tr>
+			<tr>
+				<th>Country</th>
+				<td><form:input path="country"/></td>
+			</tr>
+			<tr>
+				<th>Manager</th>
+				<td>
+					<form:select path="manager.id" multiple="false">
+						<option value="">&nbsp;</option>
+						<c:forEach var="mgr" items="${contactList}">
+							<c:if test="${contact.id!=mgr.id}">
+								<form:option value="${mgr.id}"><c:out value="${mgr.firstName} ${mgr.lastName}"/></form:option>
+							</c:if>
+						</c:forEach>
+					</form:select>
+				</td>
+			</tr>
+			<tr>
+				<th />
+				<td><input type="submit" value="Save Contact"/></td>
 			</tr>
 		</table>
 	</form:form>
@@ -122,14 +117,14 @@
 					<td>${contact.email}</td>
 					<td>${contact.telephone}</td>
 					<td>${contact.country}</td>
-					<td>${contact.manager.id}</td>
+					<td>${contact.manager}</td>
 					<td><a href="delete/${contact.id}">delete</a></td>
 				</tr>
 			</c:forEach>
 		</table>
 	</c:if>
 
-	<h4>As JSON</h4>
+	<h4>As JSON via jquery</h4>
 
 	<div id="div1"></div>
 	
