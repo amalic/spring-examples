@@ -113,11 +113,11 @@
 					<td><a href="./rest/contact/${contact.id}">${contact.id}</a></td>
 					<td><a href="${contact.id}">edit</a></td>
 					<td>${contact.userName}</td>
-					<td>${contact.lastName}, ${contact.firstName}</td>
+					<td>${contact.firstName} ${contact.lastName}</td>
 					<td>${contact.email}</td>
 					<td>${contact.telephone}</td>
 					<td>${contact.country}</td>
-					<td>${contact.manager}</td>
+					<td>${contact.manager.id}</td>
 					<td><a href="delete/${contact.id}">delete</a></td>
 				</tr>
 			</c:forEach>
