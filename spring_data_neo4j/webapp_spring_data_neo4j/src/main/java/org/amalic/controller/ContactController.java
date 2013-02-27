@@ -1,5 +1,6 @@
 package org.amalic.controller;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -47,6 +48,8 @@ public class ContactController {
 	public String saveContact(@ModelAttribute("Contact") Contact contact, BindingResult result) {
 		if(null != contact.getManager() && null==contact.getManager().getId())
 			contact.setManager(null);
+		if(null == contact.getReportsTo())
+			contact.setReportsTo(new HashSet<Contact>());
 		if(null != contact.getManager() && !contact.getReportsTo().contains(contact.getManager()))
 			contact.getReportsTo().add(contact.getManager());
 		

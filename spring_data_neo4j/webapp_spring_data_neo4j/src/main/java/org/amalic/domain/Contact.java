@@ -1,5 +1,6 @@
 package org.amalic.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import lombok.Data;
@@ -30,7 +31,7 @@ public class Contact {
 	@RelatedTo(type="IS_MANAGER_OF", direction = Direction.INCOMING)
 	private Contact manager;
 	@RelatedTo(type="REPORTS_TO")
-	private Set<Contact> reportsTo;
+	private Set<Contact> reportsTo = new HashSet<Contact>();
 	@RelatedTo(type="REPORTS_TO", direction = Direction.INCOMING)
-	private Set<Contact> directReports;
+	private Set<Contact> directReports = new HashSet<Contact>();
 }
