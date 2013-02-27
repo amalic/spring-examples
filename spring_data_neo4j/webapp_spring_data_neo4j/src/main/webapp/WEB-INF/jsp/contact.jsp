@@ -22,7 +22,7 @@
 	
 	<form:form method="post" action="save.html" commandName="contact">
 		<form:input path="id" type="hidden"/>
-		<table>
+		<table class="detailsTable">
 			<tr>
 				<th colspan="2">Details</th>
 				<th>Reports To</th>

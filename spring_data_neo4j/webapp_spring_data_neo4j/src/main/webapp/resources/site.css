@@ -11,7 +11,7 @@ input, select {
 select[disabled] option[selected] { 
 	color:white; background-color: navy;
 }
-select[disabled], td { 
+select[disabled], .detailsTable { 
 	background-color: #efefef;
 }
 th {
