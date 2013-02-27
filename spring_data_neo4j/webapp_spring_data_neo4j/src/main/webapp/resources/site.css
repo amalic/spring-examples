@@ -1,4 +1,3 @@
-select[disabled] option[selected] { color:white; background-color: navy;}
 body {
 	font-family: verdana;
 	font-size: 12px;	
@@ -7,7 +6,17 @@ table {
 	border-collapse: collapse;
 }
 input, select {
-	width: 250px;
+	width: 315px; /* fits best for my second screen */
+}
+select[disabled] option[selected] { 
+	color:white; background-color: navy;
+}
+select[disabled], .detailsTable { 
+	background-color: #efefef;
+}
+th {
+	color: white;
+	background-color: black;
 }
 table, th, td, div {
 	border: 1px solid black;

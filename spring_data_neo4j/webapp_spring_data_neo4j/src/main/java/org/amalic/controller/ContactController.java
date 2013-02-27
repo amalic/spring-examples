@@ -2,12 +2,17 @@ package org.amalic.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.amalic.domain.Contact;
 import org.amalic.service.ContactService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ContactController {
+	private static final Logger log = Logger.getLogger(ContactController.class);
 	
 	@Autowired
 	private ContactService contactService;
@@ -41,6 +47,11 @@ public class ContactController {
 	public String saveContact(@ModelAttribute("Contact") Contact contact, BindingResult result) {
 		if(null != contact.getManager() && null==contact.getManager().getId())
 			contact.setManager(null);
+		if(null != contact.getManager() && !contact.getReportsTo().contains(contact.getManager()))
+			contact.getReportsTo().add(contact.getManager());
+		
+		log.info("contact.getReportsTo()->" + contact.getReportsTo());
+		
 		contactService.saveContact(contact);
 		
 		return "redirect:/";
@@ -63,6 +74,21 @@ public class ContactController {
 	@RequestMapping(value="/rest/contacts", method=RequestMethod.GET)
 	public @ResponseBody List<Contact> getAllContactsAsList() {
 		return contactService.loadContacts();
+	}
+	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(Set.class, "reportsTo", new CustomCollectionEditor(Set.class) {
+			@Override
+			protected Object convertElement(Object element) {
+				String id = null;
+				if(element instanceof String)
+					id = (String) element;
+				else if (element instanceof Long)
+					id = ((Long)element).toString();
+				return id != null ? contactService.loadContact(Long.decode(id)) : null;
+			}
+		});
 	}
 	
 }
