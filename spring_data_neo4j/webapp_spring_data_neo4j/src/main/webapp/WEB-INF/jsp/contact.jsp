@@ -19,7 +19,7 @@
 </head>
 <body>
 	<h2>Contact Manager</h2>
-	
+
 	<form:form method="post" action="save.html" commandName="contact">
 		<form:input path="id" type="hidden"/>
 		<table class="detailsTable">
@@ -92,9 +92,9 @@
 			</tr>
 		</table>
 	</form:form>
-	
+
 	<h2><a href="./rest/contacts">Contacts</a></h2>
-	
+
 	<c:if test="${!empty contactList}">
 		<table class="datatable zebra">
 			<tr>
@@ -127,6 +127,6 @@
 	<h4>As JSON via jQuery</h4>
 
 	<div id="div1"></div>
-	
+
 </body>
 </html>
