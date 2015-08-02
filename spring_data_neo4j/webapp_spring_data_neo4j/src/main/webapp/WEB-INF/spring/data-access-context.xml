@@ -20,6 +20,4 @@
 
     <neo4j:config storeDirectory="target/data/graph.db" base-package="org.amalic" />
 
-    <neo4j:repositories base-package="org.neo4j.cineasts.repository"/>
-
 </beans>
